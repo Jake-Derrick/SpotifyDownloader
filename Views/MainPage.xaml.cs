@@ -1,24 +1,22 @@
-﻿namespace SpotifyDownloader;
+﻿using SpotifyDownloader.Services.Spotify;
+
+namespace SpotifyDownloader;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+	private ISpotifyService _spotifyService;
 
-	public MainPage()
+	public MainPage(ISpotifyService spotifyService)
 	{
 		InitializeComponent();
+		_spotifyService = spotifyService;
 	}
 
 	private void OnCounterClicked(object sender, EventArgs e)
 	{
-		count++;
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+		_spotifyService.GetSpotifyPlaylist("");
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
 	}
 }
 

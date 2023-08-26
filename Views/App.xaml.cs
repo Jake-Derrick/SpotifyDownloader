@@ -1,11 +1,13 @@
-﻿namespace SpotifyDownloader;
+﻿using SpotifyDownloader.Services.Spotify;
+
+namespace SpotifyDownloader;
 
 public partial class App : Application
 {
-	public App()
+	public App(ISpotifyService spotifyService)
 	{
 		InitializeComponent();
 
-		MainPage = new NavigationPage(new MainPage());
+		MainPage = new NavigationPage(new MainPage(spotifyService));
 	}
 }
