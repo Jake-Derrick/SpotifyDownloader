@@ -1,4 +1,6 @@
-﻿namespace SpotifyDownloader.Services.Spotify
+﻿using SpotifyDownloader.Models.Spotify;
+
+namespace SpotifyDownloader.Services.Spotify
 {
     /// <summary>
     /// Connects to the Spotify API
@@ -10,6 +12,6 @@
         /// </summary>
         /// <param name="playlistId"></param>
         /// <returns></returns>
-        Task<string> GetSpotifyPlaylist(string playlistId); // TODO: Make model for response
+        Task<List<PlayListItem>> GetSpotifyPlaylist(string playlistId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SpotifyDownloader.Models.Spotify;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace SpotifyDownloader.Services.Spotify
@@ -18,14 +19,31 @@ namespace SpotifyDownloader.Services.Spotify
         }
 
 
-        public async Task<string> GetSpotifyPlaylist(string playlistId)
+        public async Task<List<PlayListItem>> GetSpotifyPlaylist(string playlistId)
         {
-            await Authorize();
-            throw new NotImplementedException();
+            await RefreshAccessTokenIfNeeded();
+
+            var request = new HttpRequestMessage(HttpMethod.Get, Endpoints.GetPlaylistItems(playlistId));
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", AccessToken);
+
+            var response = await _httpClient.SendAsync(request);
+            var json = await response.Content.ReadAsStringAsync();
+
+            // TODO iterate to other pages
+            var playlistResponse = JsonSerializer.Deserialize<PlaylistItemsResponse>(json);
+            return playlistResponse.Playlist;
         }
 
-        internal async Task Authorize()
+        /// <summary>
+        /// Gets an access token if
+        /// </summary>
+        /// <returns></returns>
+        internal async Task RefreshAccessTokenIfNeeded()
         {
+         
+            if (DateTime.Now < TokenExpiration)
+                return;
+
             var content = new Dictionary<string, string>
             {
                 { "client_id", Secrets.ClientId },
