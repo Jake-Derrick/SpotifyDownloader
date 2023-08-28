@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Shared="clr-namespace:SpotifyDownloader.Views.Shared;assembly=SpotifyDownloader"
              x:Class="SpotifyDownloader.MainPage"
              Title="Playlists">
 
@@ -9,9 +10,8 @@
             Spacing="25"
             VerticalOptions="Fill">
 
-            <StackLayout IsVisible="{Binding HasError}" BackgroundColor="Red" Padding="5">
-                <Label Text="{Binding ErrorMessage}" TextColor="White" FontSize="20"/>
-            </StackLayout>
+            <Shared:ErrorMessage/>
+            <Shared:LoadingIndicator/>
 
             <Image
             Source="dotnet_bot.png"
@@ -32,16 +32,9 @@
                 FontSize="18"
                 HorizontalOptions="Center" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
-
             <StackLayout Padding="10,0">
-                <Entry x:Name="playlistLink" Placeholder="Playlist link" />
-                <Button Text="Sync" Clicked="OnSyncButtonClicked" WidthRequest="80"/>
+                <Entry Placeholder="Playlist Url" Text="{Binding PlaylistUrl}"/>
+                <Button Text="Sync" Command="{Binding GetPlaylistCommand}" WidthRequest="80"/>
             </StackLayout>
 
         </VerticalStackLayout>

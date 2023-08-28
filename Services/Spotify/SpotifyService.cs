@@ -5,7 +5,7 @@ using System.Text.Json;
 namespace SpotifyDownloader.Services.Spotify
 {
     /// <summary>
-    /// 
+    /// Connects to the Spotify API
     /// </summary>
     public class SpotifyService : ISpotifyService
     {
@@ -18,7 +18,7 @@ namespace SpotifyDownloader.Services.Spotify
             _httpClient = httpClient;
         }
 
-
+        /// <inheritdoc/>
         public async Task<List<PlayListItem>> GetSpotifyPlaylist(string playlistId)
         {
             await RefreshAccessTokenIfNeeded();

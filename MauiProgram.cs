@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui.Core;
+using Microsoft.Extensions.Logging;
 using SpotifyDownloader.Services.Spotify;
+using SpotifyDownloader.Views.MainPage;
 
 namespace SpotifyDownloader;
 
@@ -11,7 +13,9 @@ public static class MauiProgram
 		builder
 			.UseMauiApp<App>()
 			.RegisterServices()
-			.ConfigureFonts(fonts =>
+			.RegisterViewModels()
+			.UseMauiCommunityToolkitCore()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
@@ -30,5 +34,12 @@ public static class MauiProgram
 		mauiAppBuilder.Services.AddHttpClient();
 		return mauiAppBuilder;
 	}
+
+    public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder mauiAppBuilder)
+    {
+        mauiAppBuilder.Services.AddTransient<MainPage>();
+        mauiAppBuilder.Services.AddTransient<MainPageVM>();
+        return mauiAppBuilder;
+    }
 
 }

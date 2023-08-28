@@ -16,8 +16,7 @@ namespace SpotifyDownloader.Extensions
         public static bool IsValidPlaylistUrl(this string playlistUrl)
         {
             var playlistIndex = playlistUrl.IndexOf("playlist/");
-            var r =  playlistIndex != -1 && playlistIndex < playlistUrl.Length;
-            return r;
+            return playlistIndex != -1 && playlistIndex < playlistUrl.Length;
         }
 
         /// <summary>

@@ -8,7 +8,7 @@ namespace SpotifyDownloader.Services.Spotify
     public interface ISpotifyService
     {
         /// <summary>
-        /// Retrieves a list of songs in a Spotify playlist
+        /// Retrieves a list of Tracks in a Spotify playlist
         /// </summary>
         /// <param name="playlistId"></param>
         /// <returns></returns>
